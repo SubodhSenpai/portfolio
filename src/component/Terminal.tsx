@@ -2,7 +2,6 @@
 
 import { useRef, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import './Terminal.css';
 
 type LineType = 'output' | 'command' | 'error';
 type TerminalLine = { type: LineType; text: string };
@@ -58,11 +57,32 @@ const Terminal = () => {
     },
     history: () => commandHistory.map((cmd, i) => `${i + 1}  ${cmd}`),
     about: () => [
-      'Hi! I\'m [Your Name]',
-      'AI/ML Developer passionate about building intelligent systems',
-      'Specialized in Python, TensorFlow, and backend development',
+      '',
+      '  ╔═══════════════════════════════════════════════════════════╗',
+      '  ║                                                           ║',
+      '  ║   Hi! I\'m Subodh 👋                                       ║',
+      '  ║                                                           ║',
+      '  ║   Full Stack Developer & AI/ML Enthusiast                 ║',
+      '  ║                                                           ║',
+      '  ╚═══════════════════════════════════════════════════════════╝',
+      '',
+      '  🚀 Passionate about building intelligent systems and',
+      '     crafting beautiful user experiences.',
+      '',
+      '  💻 I love turning ideas into reality through code.',
+      '',
+      '  🎯 Currently focused on:',
+      '     • Web Development (React, Next.js, TypeScript)',
+      '     • AI/ML (Python, TensorFlow, PyTorch)',
+      '     • Backend Development (Node.js, Express)',
+      '',
+      '  📍 Based in India',
+      '',
+      '  Type "skills" to see my technical skills',
+      '  Type "projects" to view my work',
+      '  Type "contact" to get in touch',
+      '',
     ],
-    // Add more commands here...
   };
 
   const handleCommand = (cmd: string) => {
@@ -127,38 +147,57 @@ const Terminal = () => {
     }
   };
 
+  const lineColors = {
+    command: 'text-[var(--text-primary)]',
+    output: 'text-[var(--text-secondary)]',
+    error: 'text-[var(--error)]',
+  };
+
   return (
-    <div className="terminal-container" data-theme={theme}>
-      <div className="terminal-header">
-        <div className="terminal-buttons">
-          <span className="button close"></span>
-          <span className="button minimize"></span>
-          <span className="button maximize"></span>
+    <div 
+      className="w-screen h-screen bg-[var(--bg-primary)] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.5)] font-mono transition-all duration-300"
+      data-theme={theme}
+    >
+      {/* Header */}
+      <div className="bg-[var(--bg-secondary)] p-2.5 flex items-center gap-2.5">
+        <div className="flex gap-2">
+          <span className="w-3 h-3 rounded-full bg-[#ff5f56]"></span>
+          <span className="w-3 h-3 rounded-full bg-[#ffbd2e]"></span>
+          <span className="w-3 h-3 rounded-full bg-[#27c93f]"></span>
         </div>
-        <div className="terminal-title">Subodh@portfolio:~</div>
+        <div className="text-[var(--text-muted)] text-sm">Subodh@portfolio:~</div>
       </div>
       
-      <div className="terminal-body" onClick={() => inputRef.current?.focus()}>
+      {/* Body */}
+      <div 
+        className="p-5 h-[calc(100%-50px)] overflow-y-auto text-[var(--text-primary)] text-base leading-relaxed scrollbar-thin scrollbar-track-[var(--bg-primary)] scrollbar-thumb-[var(--text-muted)]"
+        onClick={() => inputRef.current?.focus()}
+      >
         {history.map((line, index) => (
-          <div key={index} className={`terminal-line ${line.type}`}>
-            {line.type === 'command' && <span className="prompt">Subodh@portfolio:~$ </span>}
+          <div key={index} className={`mb-1 whitespace-pre-wrap break-words ${lineColors[line.type]}`}>
+            {line.type === 'command' && (
+              <span className="text-[var(--accent)] font-bold">Subodh@portfolio:~$ </span>
+            )}
             <span>{line.text}</span>
           </div>
         ))}
         
-        <div className="terminal-input-line">
-          <span className="prompt">visitor@portfolio:~$ </span>
-          <input
-            ref={inputRef}
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="terminal-input"
-            autoFocus
-            spellCheck={false}
-          />
-          <span className="cursor">|</span>
+        {/* Input Line */}
+        <div className="flex items-center">
+          <span className="text-[var(--accent)] font-bold">Subodh@portfolio:~$ </span>
+          <div className="relative inline-flex items-center">
+            <span className="text-[var(--accent)] whitespace-pre">{input}</span><span className="text-[var(--accent)] animate-blink">|</span>
+            <input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="absolute left-0 top-0 w-full h-full bg-transparent border-none outline-none text-transparent font-inherit text-inherit caret-transparent"
+              autoFocus
+              spellCheck={false}
+            />
+          </div>
         </div>
       </div>
     </div>
