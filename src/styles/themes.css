@@ -1,0 +1,86 @@
+/* src/styles/themes.css */
+
+/* Default Dark Theme */
+:root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #00ff00;
+    --text-secondary: #33ff33;
+    --text-muted: #888888;
+    --accent: #00ff00;
+    --error: #ff0000;
+    --warning: #ffff00;
+  }
+  
+  /* Matrix Theme */
+  [data-theme='matrix'] {
+    --bg-primary: #0d0208;
+    --bg-secondary: #1a0f13;
+    --text-primary: #00ff41;
+    --text-secondary: #39ff14;
+    --text-muted: #008f11;
+    --accent: #00ff41;
+    --error: #ff0040;
+    --warning: #ffff00;
+  }
+  
+  /* Ubuntu Theme */
+  [data-theme='ubuntu'] {
+    --bg-primary: #300a24;
+    --bg-secondary: #430a34;
+    --text-primary: #ffffff;
+    --text-secondary: #ff6600;
+    --text-muted: #999999;
+    --accent: #e95420;
+    --error: #cc0000;
+    --warning: #f0ad4e;
+  }
+  
+  /* Dracula Theme */
+  [data-theme='dracula'] {
+    --bg-primary: #282a36;
+    --bg-secondary: #44475a;
+    --text-primary: #f8f8f2;
+    --text-secondary: #8be9fd;
+    --text-muted: #6272a4;
+    --accent: #bd93f9;
+    --error: #ff5555;
+    --warning: #f1fa8c;
+  }
+  
+  /* Nord Theme */
+  [data-theme='nord'] {
+    --bg-primary: #2e3440;
+    --bg-secondary: #3b4252;
+    --text-primary: #eceff4;
+    --text-secondary: #88c0d0;
+    --text-muted: #4c566a;
+    --accent: #81a1c1;
+    --error: #bf616a;
+    --warning: #ebcb8b;
+  }
+  
+  /* Monokai Theme */
+  [data-theme='monokai'] {
+    --bg-primary: #272822;
+    --bg-secondary: #3e3d32;
+    --text-primary: #f8f8f2;
+    --text-secondary: #66d9ef;
+    --text-muted: #75715e;
+    --accent: #a6e22e;
+    --error: #f92672;
+    --warning: #e6db74;
+  }
+  
+  /* Dark (Classic Terminal) */
+  [data-theme='dark'] {
+    --bg-primary: #000000;
+    --bg-secondary: #1a1a1a;
+    --text-primary: #00ff00;
+    --text-secondary: #00cc00;
+    --text-muted: #666666;
+    --accent: #00ff00;
+    --error: #ff0000;
+    --warning: #ffff00;
+  }
+  
