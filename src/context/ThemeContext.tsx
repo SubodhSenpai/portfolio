@@ -23,7 +23,6 @@ export function useTheme(): ThemeContextValue {
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<ThemeName>('dark');
 
-  // Read preferred theme after mount to avoid hydration mismatches
   useEffect(() => {
     try {
       const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
@@ -32,18 +31,28 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       if (initial !== theme) {
         setTheme(initial);
       }
-    } catch {
-      // ignore
+    } catch (error) {
+      // Handle errors gracefully (e.g., localStorage disabled, SSR issues)
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Failed to load theme from localStorage:', error);
+      }
+      // Continue with default theme
     }
-    // We intentionally run this only once on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     try {
       window.localStorage?.setItem('terminal-theme', theme);
-    } catch {
-      // ignore storage errors
+    } catch (error) {
+      // Handle storage errors (quota exceeded, disabled localStorage, etc.)
+      if (process.env.NODE_ENV === 'development') {
+        if (error instanceof DOMException && error.name === 'QuotaExceededError') {
+          console.warn('LocalStorage quota exceeded. Theme preference not saved.');
+        } else {
+          console.warn('Failed to save theme to localStorage:', error);
+        }
+      }
+      // Continue without saving - theme will still work for current session
     }
   }, [theme]);
 
