@@ -3,8 +3,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { portfolioData } from "@/data/portfolio";
-import { Github, Linkedin, Twitter, Globe, Mail, MapPin, Calendar, ExternalLink } from "lucide-react";
+import { Github, Linkedin, Twitter, Globe, Mail, MapPin, Calendar, ExternalLink, Phone } from "lucide-react";
+// ... (lines 7-66 skipped in replacement content, I will use separate chunks if needed, or just focus on the import and the display separately. Actually, 'replace_file_content' is single contiguous block. I should use 'multi_replace' if lines are far apart. Lines 6 and 71-73 are far apart. I'll use multi_replace.)
 import Link from 'next/link';
+import ContactModal from "@/component/ContactModal";
+import { useState } from "react";
 
 export default function PortfolioPage() {
     const containerVariants = {
@@ -24,6 +27,8 @@ export default function PortfolioPage() {
             opacity: 1
         }
     };
+
+    const [isContactOpen, setIsContactOpen] = useState(false);
 
     return (
         <div className="min-h-screen bg-neutral-50 text-neutral-900 font-sans selection:bg-blue-100 selection:text-blue-900">
@@ -66,6 +71,9 @@ export default function PortfolioPage() {
                         </div>
                         <div className="flex items-center gap-2">
                             <Mail size={16} /> {portfolioData.personal.email}
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Phone size={16} /> {portfolioData.personal.phone}
                         </div>
                     </motion.div>
 
@@ -176,19 +184,19 @@ export default function PortfolioPage() {
                 </section>
 
                 {/* Contact CTA */}
-                <section className="bg-neutral-900 text-white rounded-3xl p-12 text-center relative overflow-hidden">
+                <section className="bg-neutral-800 text-white rounded-3xl p-12 text-center relative overflow-hidden">
                     <div className="relative z-10">
                         <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to work together?</h2>
                         <p className="text-neutral-400 mb-8 max-w-xl mx-auto">
                             I'm currently available for freelance projects and open to full-time opportunities.
                         </p>
-                        <a
-                            href={`mailto:${portfolioData.personal.email}`}
+                        <button
+                            onClick={() => setIsContactOpen(true)}
                             className="inline-flex items-center gap-2 bg-white text-neutral-900 px-8 py-3 rounded-full font-bold hover:bg-neutral-200 transition-colors"
                         >
                             <Mail size={18} />
                             Say Hello
-                        </a>
+                        </button>
                     </div>
                     {/* Decorative background blur */}
                     <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-900/20 to-purple-900/20 pointer-events-none"></div>
@@ -198,6 +206,9 @@ export default function PortfolioPage() {
             <footer className="bg-neutral-100 border-t border-neutral-200 py-8 text-center text-neutral-500 text-sm">
                 <p>© {new Date().getFullYear()} {portfolioData.personal.name}. All rights reserved.</p>
             </footer>
+
+            {/* Contact Form Modal */}
+            <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
         </div>
     );
 }
