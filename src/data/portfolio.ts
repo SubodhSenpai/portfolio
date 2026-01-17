@@ -4,7 +4,8 @@ export const portfolioData = {
     role: "AI/ML & Full Stack Developer",
     description: "Passionate about building intelligent systems and crafting beautiful user experiences. I love turning ideas into reality through code.",
     location: "Remote",
-    email: "subodh@example.com",
+    email: "subodh00new@gmail.com",
+    phone: "+91-9759200217",
     links: {
       linkedin: "https://linkedin.com/in/subodh",
       github: "https://github.com/subodh",
@@ -14,8 +15,7 @@ export const portfolioData = {
     quickStats: [
       { label: "Education", value: "B.Tech in Computer Science" },
       { label: "Experience", value: "2+ Years" },
-      { label: "Projects", value: "15+ Completed" },
-      { label: "Certifications", value: "AWS, Google Cloud" },
+      { label: "Projects", value: "5+ Completed" },
     ]
   },
   skills: {
