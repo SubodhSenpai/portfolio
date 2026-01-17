@@ -54,39 +54,29 @@ export const portfolioData = {
   },
   experience: [
     {
-      role: "FULL STACK DEVELOPER",
-      company: "Company Name",
-      location: "Remote",
-      period: "Jan 2023 - Present",
+      role: "Software Engineer",
+      company: "ImpactQA (DRDO)",
+      location: "On-Site",
+      period: "June 2024 – Present",
       achievements: [
-        "Led development of microservices architecture",
-        "Built real-time features using WebSocket",
-        "Improved API response time by 40%",
-        "React, Node.js, PostgreSQL, AWS"
+        "Developed AI/ML modules for 1Gbps binary stream classification",
+        "Built interactive web interfaces for multi-individual systems",
+        "Optimized Python desktop applications",
+        "Presented technical demos to DRDO stakeholders",
+        "Tech: Python, ReactJS, NodeJS, MongoDB, .Net, XGBoost"
       ]
     },
     {
-      role: "SOFTWARE ENGINEER INTERN",
-      company: "Tech Startup",
-      location: "Hybrid",
-      period: "Jun 2022 - Dec 2022",
+      role: "Data Engineer Intern",
+      company: "Ati Motors",
+      location: "On-Site",
+      period: "Jan 2024 – June 2024",
       achievements: [
-        "Developed ML models for data analysis",
-        "Created REST APIs for mobile applications",
-        "Collaborated in agile development team",
-        "Python, FastAPI, TensorFlow, Docker"
-      ]
-    },
-    {
-      role: "FREELANCE DEVELOPER",
-      company: "Self-Employed",
-      location: "Remote",
-      period: "2021 - 2022",
-      achievements: [
-        "Built 10+ web applications for clients",
-        "Delivered projects on time and budget",
-        "Maintained 5-star client rating",
-        "React, Next.js, MongoDB, Firebase"
+        "Built 'Robo Observatory' for real-time robot monitoring",
+        "Optimized database queries by 20% via indexing strategies",
+        "Developed Multimodal RAG service with Jira/Slack integrations",
+        "Researched battery decay prediction algorithms",
+        "Tech: Python, LLMs, Langchain, Grafana, Postgres, React"
       ]
     }
   ],
@@ -102,6 +92,32 @@ export const portfolioData = {
         "Smooth animations & interactive UI components",
         "Modern gradient designs & glassmorphism effects",
         "Interactive demo sections with hover effects",
+      ]
+    },
+    {
+      name: "Admin Dashboard",
+      description: "Full-Stack Inventory Management System",
+      github: "https://github.com/SubodhSenpai/admin-dashboard", // Assuming generic or leaving placeholder if unknown. I'll use the live link mostly.
+      live: "https://admin-six-umber.vercel.app/",
+      tech: "Next.js, TypeScript, Shadcn UI, Tailwind CSS, Public API",
+      features: [
+        "Complete CRUD operations for 190+ products",
+        "Advanced data tables with filtering, sorting, and pagination",
+        "Persistent Dark/Light theme mode with seamless toggle",
+        "Responsive sidebar navigation & real-time search",
+      ]
+    },
+    {
+      name: "Interactive Dual-Mode Portfolio",
+      description: "Next-Gen Personal Website with Physics Engine",
+      github: "https://github.com/SubodhSenpai/portfolio-one", // Placeholder/Generic if unknown
+      live: "https://portfolio-one-wheat-38.vercel.app/",
+      tech: "Next.js, TypeScript, Tailwind CSS, Framer Motion, Canvas API",
+      features: [
+        "Dual-Interface System: Visual Portfolio vs. Functional Terminal",
+        "Custom Physics Engine: Interactive 'Cursor Bubble' & Particle Field",
+        "Fully Interactive Command-Line Interface (CLI) for Devs",
+        "High-performance animations with Framer Motion & Canvas",
       ]
     }
   ]

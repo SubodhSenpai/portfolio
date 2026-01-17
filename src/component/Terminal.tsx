@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { portfolioData } from '../data/portfolio';
 
 type LineType = 'output' | 'command' | 'error';
 type TerminalLine = { type: LineType; text: string; path?: string };
@@ -27,31 +28,9 @@ const Terminal = () => {
 
   // Project directories structure
   const projectDirectories: Record<string, { name: string; projects: any[] }> = {
-    frontend: {
-      name: 'Frontend Projects',
-      projects: [
-        {
-          name: 'Trendora',
-          description: 'Fashion Discovery Landing Page',
-          github: 'https://github.com/SubodhSenpai/trendora',
-          live: 'https://trendora-lime.vercel.app/',
-          tech: 'Next.js, TypeScript, Tailwind CSS, Shadcn UI',
-          features: [
-            'Fully responsive design (mobile, tablet, desktop)',
-            'Smooth animations & interactive UI components',
-            'Modern gradient designs & glassmorphism effects',
-            'Interactive demo sections with hover effects',
-          ]
-        }
-      ]
-    },
-    backend: {
-      name: 'Backend Projects',
-      projects: []
-    },
-    fullstack: {
-      name: 'Full Stack Projects',
-      projects: []
+    'web-development': {
+      name: 'Web Development Projects',
+      projects: portfolioData.projects
     }
   };
 
@@ -76,12 +55,12 @@ const Terminal = () => {
 
     const parts = trimmedInput.split(' ');
     const commandPart = parts[0].toLowerCase();
-    
+
     // If typing a command (no space yet)
     if (parts.length === 1) {
       const availableCommands = Object.keys(commands);
       const matches = availableCommands.filter(cmd => cmd.startsWith(commandPart));
-      
+
       if (matches.length === 1) {
         setInput(matches[0] + ' ');
         setCursorPosition(matches[0].length + 1);
@@ -98,12 +77,12 @@ const Terminal = () => {
     // Autocomplete for specific commands with arguments
     if (commandPart === 'cd' && parts.length === 2) {
       const dirPart = parts[1].toLowerCase();
-      const availableDirs = currentPath === '~' 
-        ? ['frontend', 'backend', 'fullstack', '..']
+      const availableDirs = currentPath === '~'
+        ? ['web-development', '..']
         : ['..', '~'];
-      
+
       const matches = availableDirs.filter(dir => dir.startsWith(dirPart));
-      
+
       if (matches.length === 1) {
         setInput(`cd ${matches[0]}`);
         setCursorPosition(`cd ${matches[0]}`.length);
@@ -116,7 +95,7 @@ const Terminal = () => {
     } else if (commandPart === 'theme' && parts.length === 2) {
       const themePart = parts[1].toLowerCase();
       const matches = themes.filter(t => t.startsWith(themePart));
-      
+
       if (matches.length === 1) {
         setInput(`theme ${matches[0]}`);
         setCursorPosition(`theme ${matches[0]}`.length);
@@ -135,7 +114,7 @@ const Terminal = () => {
       '  about      - Learn about me',
       '  skills     - View my technical skills',
       '  projects   - See my projects',
-      '  cd <dir>   - Change directory (frontend/backend/fullstack)',
+      '  cd <dir>   - Change directory (web-development)',
       '  ls         - List current directory contents',
       '  pwd        - Show current path',
       '  experience - View work experience',
@@ -238,7 +217,7 @@ const Terminal = () => {
       if (currentPath !== '~') {
         return commands.ls([]);
       }
-      
+
       return [
         '',
         '  ╔═══════════════════════════════════════════════════════════╗',
@@ -247,12 +226,10 @@ const Terminal = () => {
         '',
         '  📁 Available directories:',
         '',
-        '     frontend/     - Frontend projects',
-        '     backend/      - Backend projects',
-        '     fullstack/    - Full stack projects',
+        '     web-development/     - All Web Projects',
         '',
         '  💡 Use "cd <directory>" to explore projects',
-        '  💡 Example: cd frontend',
+        '  💡 Example: cd web-development',
         '',
       ];
     },
@@ -261,22 +238,20 @@ const Terminal = () => {
       if (currentPath === '~') {
         return [
           '',
-          '  📁 frontend/',
-          '  📁 backend/',
-          '  📁 fullstack/',
+          '  📁 web-development/',
           '',
         ];
       }
-      
+
       const dir = currentPath.replace('~/projects/', '');
       const dirData = projectDirectories[dir];
-      
+
       if (!dirData) return ['Directory not found'];
-      
+
       if (dirData.projects.length === 0) {
         return ['', '  (empty directory)', ''];
       }
-      
+
       const output = ['', `  ${dirData.name}:`, ''];
       dirData.projects.forEach((project, index) => {
         output.push(`  ${index + 1}. ${project.name} - ${project.description}`);
@@ -284,7 +259,7 @@ const Terminal = () => {
       output.push('');
       output.push('  💡 Projects listed above');
       output.push('');
-      
+
       return output;
     },
     cd: (args: string[]) => {
@@ -292,19 +267,19 @@ const Terminal = () => {
         setCurrentPath('~');
         return ['Changed to home directory'];
       }
-      
+
       const dir = args[0].toLowerCase();
-      
+
       if (dir === '..' || dir === '~') {
         setCurrentPath('~');
         return ['Changed to home directory'];
       }
-      
+
       if (projectDirectories[dir]) {
         setCurrentPath(`~/projects/${dir}`);
         const dirData = projectDirectories[dir];
         const output = ['', `  📁 ${dirData.name}`, ''];
-        
+
         if (dirData.projects.length === 0) {
           output.push('  (no projects yet)');
         } else {
@@ -321,14 +296,14 @@ const Terminal = () => {
             output.push('');
           });
         }
-        
+
         output.push('  💡 Use "cd .." to go back');
         output.push('');
-        
+
         return output;
       }
-      
-      return [`Directory not found: ${dir}`, 'Available: frontend, backend, fullstack'];
+
+      return [`Directory not found: ${dir}`, 'Available: web-development'];
     },
     experience: () => [
       '',
@@ -480,8 +455,8 @@ const Terminal = () => {
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (commandHistory.length > 0) {
-        const newIndex = historyIndex === -1 
-          ? commandHistory.length - 1 
+        const newIndex = historyIndex === -1
+          ? commandHistory.length - 1
           : Math.max(0, historyIndex - 1);
         setHistoryIndex(newIndex);
         const newInput = commandHistory[newIndex];
@@ -528,7 +503,7 @@ const Terminal = () => {
   const renderTextWithLinks = (text: string) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const parts = text.split(urlRegex);
-    
+
     return parts.map((part, index) => {
       if (part.match(urlRegex)) {
         return (
@@ -549,7 +524,7 @@ const Terminal = () => {
   };
 
   return (
-    <div 
+    <div
       className="w-screen h-screen bg-[var(--bg-primary)] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.5)] font-mono transition-all duration-300"
       data-theme={theme}
     >
@@ -562,9 +537,9 @@ const Terminal = () => {
         </div>
         <div className="text-[var(--text-muted)] text-sm">Subodh@portfolio:{currentPath}</div>
       </div>
-      
+
       {/* Body */}
-      <div 
+      <div
         ref={terminalBodyRef}
         className="p-5 h-[calc(100%-50px)] overflow-y-auto text-[var(--text-primary)] text-base leading-relaxed scrollbar-thin scrollbar-track-[var(--bg-primary)] scrollbar-thumb-[var(--text-muted)]"
         onClick={() => inputRef.current?.focus()}
@@ -577,7 +552,7 @@ const Terminal = () => {
             <span>{renderTextWithLinks(line.text)}</span>
           </div>
         ))}
-        
+
         {/* Input Line */}
         <div className="flex items-center">
           <span className="text-[var(--accent)] font-bold">Subodh@portfolio:{currentPath}$ </span>

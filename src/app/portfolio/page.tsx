@@ -112,7 +112,7 @@ export default function PortfolioPage() {
                 <section>
                     <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
                         <span className="w-8 h-1 bg-purple-600 rounded-full"></span>
-                        Featured Projects
+                        Web Development Projects
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {portfolioData.projects.map((project) => (
