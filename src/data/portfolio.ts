@@ -7,10 +7,8 @@ export const portfolioData = {
     email: "subodh00new@gmail.com",
     phone: "+91-9759200217",
     links: {
-      linkedin: "https://linkedin.com/in/subodh",
-      github: "https://github.com/subodh",
-      twitter: "https://twitter.com/subodh",
-      website: "https://subodh.dev",
+      linkedin: "https://www.linkedin.com/in/subodh-sooby/",
+      github: "https://github.com/SubodhSenpai",
     },
     quickStats: [
       { label: "Education", value: "B.Tech in Computer Science" },
@@ -54,8 +52,8 @@ export const portfolioData = {
   },
   experience: [
     {
-      role: "Software Engineer",
-      company: "ImpactQA (DRDO)",
+      role: "Software Engineer (DRDO)",
+      company: "Clarice Systems",
       location: "On-Site",
       period: "June 2024 – Present",
       achievements: [
