@@ -17,6 +17,28 @@ body {
   margin: 0;
 }
 
+/* Dark mode toggle style */
+.dark-mode {
+  --bg-primary: #fff;
+  --bg-secondary: #f3f3f3;
+  --text-primary: #181818;
+  --text-secondary: #222;
+  --text-muted: #555;
+  --accent: #0070f3;
+  --error: #d32f2f;
+  filter: invert(1) hue-rotate(180deg);
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+.dark-mode img,
+.dark-mode video {
+  filter: invert(1) hue-rotate(180deg) !important;
+}
+.dark-mode [data-theme] {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

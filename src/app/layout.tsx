@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Fira_Code } from "next/font/google";
 import "./globals.css";
 import "../styles/themes.css";
+import Footer from "../component/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${firaCode.variable} antialiased`}
       >
         {children}
+        <Footer />
       </body>
     </html>
   );
