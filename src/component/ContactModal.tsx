@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Loader2, CheckCircle } from 'lucide-react';
+import { X, Send, Loader2 } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
 
 interface ContactModalProps {
@@ -12,17 +12,17 @@ interface ContactModalProps {
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
 
-    // We'll use standard HTML form submission for reliability with formsubmit.co
-    // But we can intercept onSubmit to show loading state
-    const onSubmit = (e: React.FormEvent) => {
-        setIsSubmitting(true);
-        // Let the form submit naturally after a brief delay to show loading state
-        // Or just use iframe method for true SPA experience? 
-        // For simplicity and robustness, simple redirection form submission is best for V1.
-        // The user will be redirected to formsubmit.co captcha/success page then back.
-    };
+    // We use standard HTML form submission to formsubmit.co, which redirects back via _next.
+    // If the user presses Back instead, the browser restores this page from cache with
+    // isSubmitting still true, so reset it or the button stays stuck on "Sending...".
+    useEffect(() => {
+        const handlePageShow = (e: PageTransitionEvent) => {
+            if (e.persisted) setIsSubmitting(false);
+        };
+        window.addEventListener('pageshow', handlePageShow);
+        return () => window.removeEventListener('pageshow', handlePageShow);
+    }, []);
 
     return (
         <AnimatePresence>
@@ -48,7 +48,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                             <div className="bg-neutral-800 px-6 py-6 text-white flex justify-between items-center">
                                 <div>
                                     <h2 className="text-2xl font-bold">Say Hello 👋</h2>
-                                    <p className="text-neutral-400 text-sm mt-1">I'd love to hear from you!</p>
+                                    <p className="text-neutral-400 text-sm mt-1">I&apos;d love to hear from you!</p>
                                 </div>
                                 <button
                                     onClick={onClose}
@@ -71,7 +71,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                     {/* Disable Captcha for smoother experience (optional, user can enable later) */}
                                     <input type="hidden" name="_captcha" value="false" />
                                     {/* Redirect back to portfolio */}
-                                    <input type="hidden" name="_next" value={typeof window !== 'undefined' ? window.location.href : 'https://subodh.dev'} />
+                                    <input type="hidden" name="_next" value={typeof window !== 'undefined' ? window.location.href : undefined} />
 
                                     <div className="space-y-1.5">
                                         <label htmlFor="name" className="text-sm font-semibold text-neutral-700">Name</label>

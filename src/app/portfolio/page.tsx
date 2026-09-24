@@ -3,8 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { portfolioData } from "@/data/portfolio";
-import { Github, Linkedin, Twitter, Globe, Mail, MapPin, Calendar, ExternalLink, Phone } from "lucide-react";
-// ... (lines 7-66 skipped in replacement content, I will use separate chunks if needed, or just focus on the import and the display separately. Actually, 'replace_file_content' is single contiguous block. I should use 'multi_replace' if lines are far apart. Lines 6 and 71-73 are far apart. I'll use multi_replace.)
+import { Github, Linkedin, Mail, MapPin, Calendar, ExternalLink, Phone } from "lucide-react";
 import Link from 'next/link';
 import ContactModal from "@/component/ContactModal";
 import { useState } from "react";
@@ -58,7 +57,7 @@ export default function PortfolioPage() {
                         {portfolioData.personal.role}
                     </motion.div>
                     <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-bold tracking-tight text-neutral-900 leading-[1.1]">
-                        Hello, I'm {portfolioData.personal.name}. <br />
+                        Hello, I&apos;m {portfolioData.personal.name}. <br />
                         <span className="text-neutral-400">I build intelligent systems.</span>
                     </motion.h1>
                     <motion.p variants={itemVariants} className="text-xl text-neutral-600 max-w-2xl leading-relaxed">
@@ -116,40 +115,45 @@ export default function PortfolioPage() {
                     </div>
                 </section>
 
-                {/* Projects Section */}
-                <section>
-                    <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-                        <span className="w-8 h-1 bg-purple-600 rounded-full"></span>
-                        Web Development Projects
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {portfolioData.projects.map((project) => (
-                            <div key={project.name} className="group relative bg-white border border-neutral-200 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                                <div className="flex justify-between items-start mb-4">
-                                    <div>
-                                        <h3 className="text-xl font-bold text-neutral-900 group-hover:text-blue-600 transition-colors">{project.name}</h3>
-                                        <p className="text-neutral-500 text-sm">{project.description}</p>
+                {/* Projects Sections */}
+                {[
+                    { title: "AI / ML Projects", projects: portfolioData.aiProjects },
+                    { title: "Web Development Projects", projects: portfolioData.projects },
+                ].map((section) => (
+                    <section key={section.title}>
+                        <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
+                            <span className="w-8 h-1 bg-purple-600 rounded-full"></span>
+                            {section.title}
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {section.projects.map((project) => (
+                                <div key={project.name} className="group relative bg-white border border-neutral-200 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div>
+                                            <h3 className="text-xl font-bold text-neutral-900 group-hover:text-blue-600 transition-colors">{project.name}</h3>
+                                            <p className="text-neutral-500 text-sm">{project.description}</p>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="p-2 hover:bg-neutral-100 rounded-full transition-colors"><Github size={18} /></a>}
+                                            {project.live && <a href={project.live} target="_blank" rel="noreferrer" className="p-2 hover:bg-neutral-100 rounded-full transition-colors"><ExternalLink size={18} /></a>}
+                                        </div>
                                     </div>
-                                    <div className="flex gap-2">
-                                        {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="p-2 hover:bg-neutral-100 rounded-full transition-colors"><Github size={18} /></a>}
-                                        {project.live && <a href={project.live} target="_blank" rel="noreferrer" className="p-2 hover:bg-neutral-100 rounded-full transition-colors"><ExternalLink size={18} /></a>}
-                                    </div>
+                                    <p className="text-neutral-600 mb-6 text-sm leading-relaxed">
+                                        {project.tech}
+                                    </p>
+                                    <ul className="space-y-2">
+                                        {project.features?.map((feature, idx) => (
+                                            <li key={idx} className="flex items-start gap-2 text-sm text-neutral-500">
+                                                <span className="mt-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0"></span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <p className="text-neutral-600 mb-6 text-sm leading-relaxed">
-                                    {project.tech}
-                                </p>
-                                <ul className="space-y-2">
-                                    {project.features?.map((feature, idx) => (
-                                        <li key={idx} className="flex items-start gap-2 text-sm text-neutral-500">
-                                            <span className="mt-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0"></span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
-                    </div>
-                </section>
+                            ))}
+                        </div>
+                    </section>
+                ))}
 
 
                 {/* Experience Section */}
@@ -188,7 +192,7 @@ export default function PortfolioPage() {
                     <div className="relative z-10">
                         <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to work together?</h2>
                         <p className="text-neutral-400 mb-8 max-w-xl mx-auto">
-                            I'm currently available for freelance projects and open to full-time opportunities.
+                            I&apos;m currently available for freelance projects and open to full-time opportunities.
                         </p>
                         <button
                             onClick={() => setIsContactOpen(true)}

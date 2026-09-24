@@ -27,11 +27,24 @@ const Terminal = () => {
     (themes as readonly string[]).includes(value);
 
   // Project directories structure
-  const projectDirectories: Record<string, { name: string; projects: any[] }> = {
+  const projectDirectories: Record<string, { name: string; projects: typeof portfolioData.projects }> = {
+    'ai-ml': {
+      name: 'AI / ML Projects',
+      projects: portfolioData.aiProjects
+    },
     'web-development': {
       name: 'Web Development Projects',
       projects: portfolioData.projects
     }
+  };
+
+  // Display names for skill categories
+  const skillCategoryLabels: Record<string, string> = {
+    frontend: 'FRONTEND',
+    backend: 'BACKEND',
+    database: 'DATABASE',
+    aiml: 'AI / ML',
+    tools: 'TOOLS & DEVOPS',
   };
 
   // Sync cursor position with input ref
@@ -78,7 +91,7 @@ const Terminal = () => {
     if (commandPart === 'cd' && parts.length === 2) {
       const dirPart = parts[1].toLowerCase();
       const availableDirs = currentPath === '~'
-        ? ['web-development', '..']
+        ? [...Object.keys(projectDirectories), '..']
         : ['..', '~'];
 
       const matches = availableDirs.filter(dir => dir.startsWith(dirPart));
@@ -114,12 +127,12 @@ const Terminal = () => {
       '  about      - Learn about me',
       '  skills     - View my technical skills',
       '  projects   - See my projects',
-      '  cd <dir>   - Change directory (web-development)',
+      '  cd <dir>   - Change directory (ai-ml, web-development)',
       '  ls         - List current directory contents',
       '  pwd        - Show current path',
       '  experience - View work experience',
       '  contact    - Get contact information',
-      '  resume     - Download resume',
+      '  resume     - View resume highlights',
       '  themes     - List available themes',
       '  theme <name> - Switch to a theme',
       '  clear      - Clear terminal',
@@ -156,62 +169,45 @@ const Terminal = () => {
       '',
       '  I love turning ideas into reality through code.',
       '',
+      '  Spent 2 years building AI systems for DRDO at Clarice Systems.',
+      '  Now building tools that check what AI agents actually do.',
+      '',
       '  Currently focused on:',
+      '     • AI Agents (LangGraph Multi-Agent Systems, RAG, Agent Evaluation)',
       '     • Web Development (React, Next.js, TypeScript)',
-      '     • AI/ML (Python, TensorFlow, PyTorch, LangChain, LangGraph)',
+      '     • AI/ML (Python, TensorFlow, PyTorch, LangChain, LangGraph, XGBoost)',
       '     • Backend Development (Node.js, Express, FastAPI)',
-      '     • Database (MongoDB, PostgreSQL, Redis)',
-      '     • DevOps (Docker, Kubernetes, AWS, Vercel)',
+      '     • Database (MongoDB, PostgreSQL, Redis, SQLite, ChromaDB)',
+      '     • DevOps (Docker, Kubernetes, AWS, Vercel, GitHub Actions)',
       '     • Version Control (Git, GitHub)',
       '     • UI/UX Design (Figma, Adobe XD, Sketch)',
       '     • Project Management (Jira)',
       '     • Communication (English, Hindi)',
       '     • Problem Solving (Debugging, Troubleshooting)',
-      '     • Learning (Continuous Learning)',
+      '     • Learning (LLM Inference, Continuous Learning)',
       '',
     ],
-    skills: () => [
-      '',
-      '  ╔═══════════════════════════════════════════════════════════╗',
-      '  ║                    TECHNICAL SKILLS                       ║',
-      '  ╚═══════════════════════════════════════════════════════════╝',
-      '',
-      '  FRONTEND',
-      '  ├── React.js / Next.js          ████████████████    90%',
-      '  ├── TypeScript / JavaScript     ████████████████    90%',
-      '  ├── HTML5 / CSS3                █████████████████   95%',
-      '  └── Tailwind CSS                ████████████████    90%',
-      '',
-      '  BACKEND',
-      '  ├── Node.js / Express           ███████████████     85%',
-      '  ├── Python / FastAPI            ████████████████    90%',
-      '  ├── RESTful APIs                ████████████████    90%',
-      '  └── GraphQL                     ██████████████      80%',
-      '',
-      '  DATABASE',
-      '  ├── MongoDB                     ███████████████     85%',
-      '  ├── PostgreSQL                  ██████████████      80%',
-      '  └── Redis                       █████████████       75%',
-      '',
-      '  AI / ML',
-      '  ├── Python                      ████████████████    90%',
-      '  ├── TensorFlow / Keras          ███████████████     85%',
-      '  ├── PyTorch                     ██████████████      80%',
-      '  ├── LangChain / LangGraph       ███████████████     85%',
-      '  └── Scikit-learn                ████████████████    90%',
-      '',
-      '  TOOLS & DEVOPS',
-      '  ├── Git / GitHub                █████████████████   95%',
-      '  ├── Docker                      ██████████████      80%',
-      '  ├── Kubernetes                  █████████████       75%',
-      '  ├── AWS / Vercel                ███████████████     85%',
-      '  ├── Linux / Bash                ██████████████      80%',
-      '  └── Grafana                     ████████████████    90%',
-      '',
-      '  PROJECT MANAGEMENT',
-      '  └── Jira                        ████████████████    90%',
-      '',
-    ],
+    skills: () => {
+      const output = [
+        '',
+        '  ╔═══════════════════════════════════════════════════════════╗',
+        '  ║                    TECHNICAL SKILLS                       ║',
+        '  ╚═══════════════════════════════════════════════════════════╝',
+        '',
+      ];
+
+      Object.entries(portfolioData.skills).forEach(([category, skills]) => {
+        output.push(`  ${skillCategoryLabels[category] ?? category.toUpperCase()}`);
+        skills.forEach((skill, index) => {
+          const branch = index === skills.length - 1 ? '└──' : '├──';
+          const bar = '█'.repeat(Math.floor(skill.level * 18 / 100));
+          output.push(`  ${branch} ${skill.name.padEnd(28)}${bar.padEnd(20)}${skill.level}%`);
+        });
+        output.push('');
+      });
+
+      return output;
+    },
     projects: () => {
       // If inside a project directory, show ls instead
       if (currentPath !== '~') {
@@ -226,6 +222,7 @@ const Terminal = () => {
         '',
         '  📁 Available directories:',
         '',
+        '     ai-ml/               - AI / ML Projects',
         '     web-development/     - All Web Projects',
         '',
         '  💡 Use "cd <directory>" to explore projects',
@@ -238,6 +235,7 @@ const Terminal = () => {
       if (currentPath === '~') {
         return [
           '',
+          '  📁 ai-ml/',
           '  📁 web-development/',
           '',
         ];
@@ -303,45 +301,38 @@ const Terminal = () => {
         return output;
       }
 
-      return [`Directory not found: ${dir}`, 'Available: web-development'];
+      return [`Directory not found: ${dir}`, `Available: ${Object.keys(projectDirectories).join(', ')}`];
     },
-    experience: () => [
-      '',
-      '  ╔═══════════════════════════════════════════════════════════╗',
-      '  ║                    WORK EXPERIENCE                        ║',
-      '  ╚═══════════════════════════════════════════════════════════╝',
-      '',
-      '  🏢 FULL STACK DEVELOPER',
-      '  ├── 📍 Company Name | Remote',
-      '  ├── 📅 Jan 2023 - Present',
-      '  ├── ✨ Led development of microservices architecture',
-      '  ├── ✨ Built real-time features using WebSocket',
-      '  ├── ✨ Improved API response time by 40%',
-      '  └── 🛠️ React, Node.js, PostgreSQL, AWS',
-      '',
-      '  ─────────────────────────────────────────────────────────────',
-      '',
-      '  🏢 SOFTWARE ENGINEER INTERN',
-      '  ├── 📍 Tech Startup | Hybrid',
-      '  ├── 📅 Jun 2022 - Dec 2022',
-      '  ├── ✨ Developed ML models for data analysis',
-      '  ├── ✨ Created REST APIs for mobile applications',
-      '  ├── ✨ Collaborated in agile development team',
-      '  └── 🛠️ Python, FastAPI, TensorFlow, Docker',
-      '',
-      '  ─────────────────────────────────────────────────────────────',
-      '',
-      '  🏢 FREELANCE DEVELOPER',
-      '  ├── 📍 Self-Employed | Remote',
-      '  ├── 📅 2021 - 2022',
-      '  ├── ✨ Built 10+ web applications for clients',
-      '  ├── ✨ Delivered projects on time and budget',
-      '  ├── ✨ Maintained 5-star client rating',
-      '  └── 🛠️ React, Next.js, MongoDB, Firebase',
-      '',
-      '  📄 Type "resume" to download my full resume!',
-      '',
-    ],
+    experience: () => {
+      const output = [
+        '',
+        '  ╔═══════════════════════════════════════════════════════════╗',
+        '  ║                    WORK EXPERIENCE                        ║',
+        '  ╚═══════════════════════════════════════════════════════════╝',
+        '',
+      ];
+
+      portfolioData.experience.forEach((exp, index) => {
+        if (index > 0) {
+          output.push('  ─────────────────────────────────────────────────────────────');
+          output.push('');
+        }
+        output.push(`  🏢 ${exp.role.toUpperCase()}`);
+        output.push(`  ├── 📍 ${exp.company} | ${exp.location}`);
+        output.push(`  ├── 📅 ${exp.period}`);
+        exp.achievements.forEach((item, i) => {
+          const branch = i === exp.achievements.length - 1 ? '└──' : '├──';
+          const line = item.startsWith('Tech: ') ? `🛠️ ${item.replace('Tech: ', '')}` : `✨ ${item}`;
+          output.push(`  ${branch} ${line}`);
+        });
+        output.push('');
+      });
+
+      output.push('  📄 Type "resume" for my resume highlights!');
+      output.push('');
+
+      return output;
+    },
     contact: () => [
       '',
       '  ╔═══════════════════════════════════════════════════════════╗',
@@ -353,19 +344,16 @@ const Terminal = () => {
       '  ┌─────────────────────────────────────────────────────────┐',
       '  │                                                         │',
       '  │   📧 EMAIL                                              │',
-      '  │      subodh00new@gmail.com                              │',
+      `  │      ${portfolioData.personal.email.padEnd(51)}│`,
       '  │                                                         │',
       '  │   📞 PHONE                                              │',
-      '  │      +91-9759200217                                     │',
+      `  │      ${portfolioData.personal.phone.padEnd(51)}│`,
       '  │                                                         │',
       '  │   💼 LINKEDIN                                           │',
-      '  │      linkedin.com/in/subodh                             │',
+      `  │      ${portfolioData.personal.links.linkedin.padEnd(51)}│`,
       '  │                                                         │',
       '  │   🐙 GITHUB                                             │',
-      '  │      github.com/subodh                                  │',
-      '  │                                                         │',
-      '  │   🐦 TWITTER                                            │',
-      '  │      twitter.com/subodh                                 │',
+      `  │      ${portfolioData.personal.links.github.padEnd(51)}│`,
       '  │                                                         │',
       '  └─────────────────────────────────────────────────────────┘',
       '',
@@ -384,28 +372,28 @@ const Terminal = () => {
       '  ║                       RESUME                              ║',
       '  ╚═══════════════════════════════════════════════════════════╝',
       '',
-      '  📄 Download my resume:',
+      '  📄 My resume & profiles:',
       '',
       '  ┌─────────────────────────────────────────────────────────┐',
       '  │                                                         │',
-      '  │   📥 PDF VERSION                                        │',
-      '  │      → drive.google.com/subodh-resume.pdf               │',
+      '  │   💼 FULL WORK HISTORY (LINKEDIN)                       │',
+      `  │      → ${portfolioData.personal.links.linkedin.padEnd(49)}│`,
       '  │                                                         │',
-      '  │   📋 ONLINE VERSION                                     │',
-      '  │      → subodh.dev/resume                                │',
+      '  │   🐙 PROJECTS & CODE (GITHUB)                           │',
+      `  │      → ${portfolioData.personal.links.github.padEnd(49)}│`,
       '  │                                                         │',
       '  └─────────────────────────────────────────────────────────┘',
       '',
       '  📊 Quick Stats:',
-      '  ├── 🎓 Education: B.Tech in Computer Science',
+      '  ├── 🎓 Education: B.Tech in Computer Science, IIIT Vadodara',
       '  ├── 💼 Experience: 2+ Years',
-      '  ├── 🚀 Projects: 5+ Completed',
+      '  └── 🚀 Projects: 5+ Completed',
       '',
       '  📝 Resume Highlights:',
-      '     • Full Stack Development expertise',
-      '     • AI/ML project experience',
-      '     • Strong problem-solving skills',
-      '     • Excellent communication abilities',
+      '     • 2 years building AI systems for DRDO at Clarice Systems',
+      '     • Finalist, Enigma national coding tournament (700+ teams)',
+      '     • Mentored 200+ students in full-stack and cloud',
+      '     • Co-founded the university table tennis club',
       '',
       '  💡 Type "experience" for detailed work history!',
       '',
