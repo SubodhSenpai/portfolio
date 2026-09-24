@@ -28,9 +28,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
       const stored = window.localStorage?.getItem('terminal-theme') as ThemeName | null;
       const initial: ThemeName = stored ?? (prefersDark ? 'matrix' : 'dark');
-      if (initial !== theme) {
-        setTheme(initial);
-      }
+      // Load the saved theme after hydration so the prerendered HTML and first client render match
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTheme(initial);
     } catch (error) {
       // Handle errors gracefully (e.g., localStorage disabled, SSR issues)
       if (process.env.NODE_ENV === 'development') {

@@ -1,29 +1,26 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Matter from 'matter-js';
 import Link from 'next/link';
-import { Terminal, User, Rocket } from 'lucide-react';
+import { Terminal, User } from 'lucide-react';
 
 export default function AntigravityPage() {
     const sceneRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [isClient, setIsClient] = useState(false);
 
     // Mouse position ref
     const mousePos = useRef({ x: 0, y: 0 });
-
-    useEffect(() => {
-        setIsClient(true);
-        mousePos.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    }, []);
 
     const handleMouseMove = (e: React.MouseEvent) => {
         mousePos.current = { x: e.clientX, y: e.clientY };
     };
 
+    // Effects only run in the browser, so window is always available here
     useEffect(() => {
-        if (!isClient || !canvasRef.current || !sceneRef.current) return;
+        if (!canvasRef.current || !sceneRef.current) return;
+
+        mousePos.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
         const Engine = Matter.Engine,
             Render = Matter.Render,
@@ -201,17 +198,19 @@ export default function AntigravityPage() {
             });
         });
 
-        Matter.Runner.run(Runner.create(), engine);
+        const runner = Runner.create();
+        Runner.run(runner, engine);
         Render.run(render);
 
         return () => {
+            // Stop the runner too, otherwise the simulation keeps running after navigating away
+            Runner.stop(runner);
             Render.stop(render);
             Composite.clear(world, false);
             Engine.clear(engine);
-            if (render.canvas) render.canvas.remove();
         };
 
-    }, [isClient]);
+    }, []);
 
     return (
         <div
