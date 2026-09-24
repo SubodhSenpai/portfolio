@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef, useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useTheme } from '../context/ThemeContext';
 import { portfolioData } from '../data/portfolio';
 
@@ -8,13 +10,14 @@ type LineType = 'output' | 'command' | 'error';
 type TerminalLine = { type: LineType; text: string; path?: string };
 
 const Terminal = () => {
+  const router = useRouter();
   const { theme, switchTheme } = useTheme();
   const [input, setInput] = useState<string>('');
   const [cursorPosition, setCursorPosition] = useState<number>(0);
   const [currentPath, setCurrentPath] = useState<string>('~');
   const [history, setHistory] = useState<TerminalLine[]>([
     { type: 'output', text: 'Welcome to My Portfolio Terminal' },
-    { type: 'output', text: "Type 'help' for available commands" },
+    { type: 'output', text: "Type 'help' for available commands, or 'exit' to go back home" },
   ]);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
@@ -128,6 +131,7 @@ const Terminal = () => {
       '  theme <name> - Switch to a theme',
       '  clear      - Clear terminal',
       '  history    - Show command history',
+      '  exit       - Go back to the home screen',
     ],
     themes: () => [
       'Available themes:',
@@ -149,6 +153,11 @@ const Terminal = () => {
       return [];
     },
     history: () => commandHistory.map((cmd, i) => `${i + 1}  ${cmd}`),
+    exit: () => {
+      router.push('/');
+      return ['Returning to home screen...'];
+    },
+    home: () => commands.exit([]),
     about: () => [
       '',
       '  ╔═══════════════════════════════════════════════════════════╗',
@@ -508,7 +517,8 @@ const Terminal = () => {
       {/* Header */}
       <div className="bg-[var(--bg-secondary)] p-2.5 flex items-center gap-2.5">
         <div className="flex gap-2">
-          <span className="w-3 h-3 rounded-full bg-[#ff5f56]"></span>
+          {/* Red "close window" dot takes the visitor back to the landing page */}
+          <Link href="/" title="Back to home" aria-label="Back to home" className="w-3 h-3 rounded-full bg-[#ff5f56]"></Link>
           <span className="w-3 h-3 rounded-full bg-[#ffbd2e]"></span>
           <span className="w-3 h-3 rounded-full bg-[#27c93f]"></span>
         </div>
