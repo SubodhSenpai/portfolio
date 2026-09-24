@@ -47,7 +47,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                             {/* Header */}
                             <div className="bg-neutral-800 px-6 py-6 text-white flex justify-between items-center">
                                 <div>
-                                    <h2 className="text-2xl font-bold">Say Hello 👋</h2>
+                                    <h2 className="text-2xl font-bold">Say Hello</h2>
                                     <p className="text-neutral-400 text-sm mt-1">I&apos;d love to hear from you!</p>
                                 </div>
                                 <button

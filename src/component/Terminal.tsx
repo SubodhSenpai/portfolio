@@ -211,13 +211,13 @@ const Terminal = () => {
         '  ║                   PROJECT DIRECTORIES                     ║',
         '  ╚═══════════════════════════════════════════════════════════╝',
         '',
-        '  📁 Available directories:',
+        '  Available directories:',
         '',
         '     ai-ml/               - AI / ML Projects',
         '     web-development/     - All Web Projects',
         '',
-        '  💡 Use "cd <directory>" to explore projects',
-        '  💡 Example: cd web-development',
+        '  Use "cd <directory>" to explore projects',
+        '  Example: cd web-development',
         '',
       ];
     },
@@ -226,8 +226,8 @@ const Terminal = () => {
       if (currentPath === '~') {
         return [
           '',
-          '  📁 ai-ml/',
-          '  📁 web-development/',
+          '  ai-ml/',
+          '  web-development/',
           '',
         ];
       }
@@ -246,7 +246,7 @@ const Terminal = () => {
         output.push(`  ${index + 1}. ${project.name} - ${project.description}`);
       });
       output.push('');
-      output.push('  💡 Projects listed above');
+      output.push('  Projects listed above');
       output.push('');
 
       return output;
@@ -267,7 +267,7 @@ const Terminal = () => {
       if (projectDirectories[dir]) {
         setCurrentPath(`~/projects/${dir}`);
         const dirData = projectDirectories[dir];
-        const output = ['', `  📁 ${dirData.name}`, ''];
+        const output = ['', `  ${dirData.name}`, ''];
 
         if (dirData.projects.length === 0) {
           output.push('  (no projects yet)');
@@ -275,18 +275,18 @@ const Terminal = () => {
           dirData.projects.forEach((project, index) => {
             output.push(`  ${index + 1}. ${project.name}`);
             output.push(`     ${project.description}`);
-            if (project.github) output.push(`     🔗 ${project.github}`);
-            if (project.live) output.push(`     🌐 ${project.live}`);
-            output.push(`     🛠️  ${project.tech}`);
+            if (project.github) output.push(`     GitHub:   ${project.github}`);
+            if (project.live) output.push(`     Live:     ${project.live}`);
+            output.push(`     Tech:     ${project.tech}`);
             if (project.features) {
-              output.push('     ⭐ Features:');
+              output.push('     Features:');
               project.features.forEach((f: string) => output.push(`        • ${f}`));
             }
             output.push('');
           });
         }
 
-        output.push('  💡 Use "cd .." to go back');
+        output.push('  Use "cd .." to go back');
         output.push('');
 
         return output;
@@ -308,18 +308,17 @@ const Terminal = () => {
           output.push('  ─────────────────────────────────────────────────────────────');
           output.push('');
         }
-        output.push(`  🏢 ${exp.role.toUpperCase()}`);
-        output.push(`  ├── 📍 ${exp.company} | ${exp.location}`);
-        output.push(`  ├── 📅 ${exp.period}`);
+        output.push(`  ${exp.role.toUpperCase()}`);
+        output.push(`  ├── ${exp.company} | ${exp.location}`);
+        output.push(`  ├── ${exp.period}`);
         exp.achievements.forEach((item, i) => {
           const branch = i === exp.achievements.length - 1 ? '└──' : '├──';
-          const line = item.startsWith('Tech: ') ? `🛠️ ${item.replace('Tech: ', '')}` : `✨ ${item}`;
-          output.push(`  ${branch} ${line}`);
+          output.push(`  ${branch} ${item}`);
         });
         output.push('');
       });
 
-      output.push('  📄 Type "resume" for my resume highlights!');
+      output.push('  Type "resume" for my resume highlights!');
       output.push('');
 
       return output;
@@ -330,31 +329,31 @@ const Terminal = () => {
       '  ║                    GET IN TOUCH                           ║',
       '  ╚═══════════════════════════════════════════════════════════╝',
       '',
-      '  📬 I\'d love to hear from you! Reach out via:',
+      '  I\'d love to hear from you! Reach out via:',
       '',
       '  ┌─────────────────────────────────────────────────────────┐',
       '  │                                                         │',
-      '  │   📧 EMAIL                                              │',
+      '  │   EMAIL                                                 │',
       `  │      ${portfolioData.personal.email.padEnd(51)}│`,
       '  │                                                         │',
-      '  │   📞 PHONE                                              │',
+      '  │   PHONE                                                 │',
       `  │      ${portfolioData.personal.phone.padEnd(51)}│`,
       '  │                                                         │',
-      '  │   💼 LINKEDIN                                           │',
+      '  │   LINKEDIN                                              │',
       `  │      ${portfolioData.personal.links.linkedin.padEnd(51)}│`,
       '  │                                                         │',
-      '  │   🐙 GITHUB                                             │',
+      '  │   GITHUB                                                │',
       `  │      ${portfolioData.personal.links.github.padEnd(51)}│`,
       '  │                                                         │',
       '  └─────────────────────────────────────────────────────────┘',
       '',
-      '  💬 Open for:',
+      '  Open for:',
       '     • Full-time opportunities',
       '     • Freelance projects',
       '     • Open source collaborations',
       '     • Technical discussions',
       '',
-      '  ⚡ Response time: Usually within 24 hours!',
+      '  Response time: Usually within 24 hours!',
       '',
     ],
     resume: () => [
@@ -363,30 +362,30 @@ const Terminal = () => {
       '  ║                       RESUME                              ║',
       '  ╚═══════════════════════════════════════════════════════════╝',
       '',
-      '  📄 My resume & profiles:',
+      '  My resume & profiles:',
       '',
       '  ┌─────────────────────────────────────────────────────────┐',
       '  │                                                         │',
-      '  │   💼 FULL WORK HISTORY (LINKEDIN)                       │',
+      '  │   FULL WORK HISTORY (LINKEDIN)                          │',
       `  │      → ${portfolioData.personal.links.linkedin.padEnd(49)}│`,
       '  │                                                         │',
-      '  │   🐙 PROJECTS & CODE (GITHUB)                           │',
+      '  │   PROJECTS & CODE (GITHUB)                              │',
       `  │      → ${portfolioData.personal.links.github.padEnd(49)}│`,
       '  │                                                         │',
       '  └─────────────────────────────────────────────────────────┘',
       '',
-      '  📊 Quick Stats:',
-      '  ├── 🎓 Education: B.Tech in Computer Science, IIIT Vadodara',
-      '  ├── 💼 Experience: 2+ Years',
-      '  └── 🚀 Projects: 5+ Completed',
+      '  Quick Stats:',
+      '  ├── Education: B.Tech in Computer Science, IIIT Vadodara',
+      '  ├── Experience: 2+ Years',
+      '  └── Projects: 5+ Completed',
       '',
-      '  📝 Resume Highlights:',
+      '  Resume Highlights:',
       '     • 2 years building AI systems for DRDO at Clarice Systems',
       '     • Finalist, Enigma national coding tournament (700+ teams)',
       '     • Mentored 200+ students in full-stack and cloud',
       '     • Co-founded the university table tennis club',
       '',
-      '  💡 Type "experience" for detailed work history!',
+      '  Type "experience" for detailed work history!',
       '',
     ],
   };
@@ -548,7 +547,8 @@ const Terminal = () => {
               value={input}
               onChange={(e) => {
                 setInput(e.target.value);
-                setCursorPosition(e.target.value.length);
+                // Keep the cursor where the edit happened, not at the end of the line
+                setCursorPosition(e.target.selectionStart ?? e.target.value.length);
               }}
               onKeyDown={handleKeyDown}
               onClick={(e) => {
