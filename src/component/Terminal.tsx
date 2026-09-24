@@ -38,15 +38,6 @@ const Terminal = () => {
     }
   };
 
-  // Display names for skill categories
-  const skillCategoryLabels: Record<string, string> = {
-    frontend: 'FRONTEND',
-    backend: 'BACKEND',
-    database: 'DATABASE',
-    aiml: 'AI / ML',
-    tools: 'TOOLS & DEVOPS',
-  };
-
   // Sync cursor position with input ref
   useEffect(() => {
     if (inputRef.current) {
@@ -197,7 +188,7 @@ const Terminal = () => {
       ];
 
       Object.entries(portfolioData.skills).forEach(([category, skills]) => {
-        output.push(`  ${skillCategoryLabels[category] ?? category.toUpperCase()}`);
+        output.push(`  ${category.toUpperCase()}`);
         skills.forEach((skill, index) => {
           const branch = index === skills.length - 1 ? '└──' : '├──';
           const bar = '█'.repeat(Math.floor(skill.level * 18 / 100));
