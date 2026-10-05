@@ -108,13 +108,13 @@ export const portfolioData = {
       name: "RegShield",
       description: "Regression Tests for AI Agent Behaviour",
       github: "https://github.com/SubodhSenpai/RegShield",
-      live: "https://regshield-lyart.vercel.app",
-      tech: "Python, LangChain, LangGraph, smolagents, pytest, GitHub Actions",
+      live: "https://agent-reg-shield.vercel.app",
+      tech: "Python, LangChain, LangGraph, smolagents, OpenAI / Anthropic / Gemini SDKs, OpenTelemetry, pytest, GitHub Actions",
       features: [
         "Fails CI when an agent's tool calls, arguments or call order regress",
-        "Deterministic trace checks run offline in milliseconds, no LLM needed",
-        "Checks approvals, multi-agent handoffs, routing & parallel calls",
-        "Plugs into LangChain, LangGraph & smolagents; published on PyPI",
+        "Classical algorithms (F1, dependency-graph ordering, cycle detection) run offline in ms; optional LLM judge",
+        "Checks approvals, plans, routing, parallel calls, budgets & multi-agent handoff loops",
+        "In production the same rules block risky calls; tracks cost on paid APIs or local models",
       ]
     },
     {
@@ -145,6 +145,17 @@ export const portfolioData = {
     }
   ],
   projects: [
+    {
+      name: "LanShack",
+      description: "Gaming Cafe Website with a 3D Rig Showroom & Slot Booking",
+      tech: "Next.js, TypeScript, React Three Fiber (three.js), Neon Postgres, Drizzle ORM, Zod, Tailwind CSS",
+      features: [
+        "Client site for two Delhi gaming cafes: PC rig rentals, slot booking, tournaments & corporate events",
+        "3D rig showroom where each PC is drawn from its parts list, with exploded view & live specs",
+        "Booking for PCs & PS5s by seat tier; Postgres exclusion constraints stop double bookings",
+        "Admin dashboard for revenue, footfall & occupancy, with email & WhatsApp booking confirmations",
+      ]
+    },
     {
       name: "Trendora",
       description: "Fashion Discovery Landing Page",
