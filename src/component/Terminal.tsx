@@ -386,7 +386,7 @@ const Terminal = () => {
       '  Quick Stats:',
       '  ├── Education: B.Tech in Computer Science, IIIT Vadodara',
       '  ├── Experience: 2+ Years',
-      '  └── Projects: 5+ Completed',
+      `  └── Projects: ${portfolioData.personal.quickStats.find(s => s.label === 'Projects')?.value}`,
       '',
       '  Resume Highlights:',
       '     • 2 years building AI systems for DRDO at Clarice Systems',

@@ -13,7 +13,7 @@ export const portfolioData = {
     quickStats: [
       { label: "Education", value: "B.Tech in Computer Science" },
       { label: "Experience", value: "2+ Years" },
-      { label: "Projects", value: "5+ Completed" },
+      { label: "Projects", value: "7 Completed" },
     ]
   },
   // Keys are used as the category headings in both the visual and terminal portfolios
@@ -79,7 +79,7 @@ export const portfolioData = {
       role: "Software Engineer (DRDO)",
       company: "Clarice Systems",
       location: "On-Site",
-      period: "June 2024 – 2026",
+      period: "June 2024 – June 2026",
       achievements: [
         "Built XGBoost threat-detection models for 1Gbps binary stream classification",
         "Built the operator console for a five-agent system showing each agent's state, tool calls and findings",
@@ -148,6 +148,7 @@ export const portfolioData = {
     {
       name: "LanShack",
       description: "Gaming Cafe Website with a 3D Rig Showroom & Slot Booking",
+      live: "https://lanshack.vercel.app/",
       tech: "Next.js, TypeScript, React Three Fiber (three.js), Neon Postgres, Drizzle ORM, Zod, Tailwind CSS",
       features: [
         "Client site for two Delhi gaming cafes: PC rig rentals, slot booking, tournaments & corporate events",
