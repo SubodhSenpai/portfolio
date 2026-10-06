@@ -13,7 +13,7 @@ export const portfolioData = {
     quickStats: [
       { label: "Education", value: "B.Tech in Computer Science" },
       { label: "Experience", value: "2+ Years" },
-      { label: "Projects", value: "7 Completed" },
+      { label: "Projects", value: "8 Completed" },
     ]
   },
   // Keys are used as the category headings in both the visual and terminal portfolios
@@ -155,6 +155,18 @@ export const portfolioData = {
         "3D rig showroom where each PC is drawn from its parts list, with exploded view & live specs",
         "Booking for PCs & PS5s by seat tier; Postgres exclusion constraints stop double bookings",
         "Admin dashboard for revenue, footfall & occupancy, with email & WhatsApp booking confirmations",
+      ]
+    },
+    {
+      name: "Bats Traveller",
+      description: "Travel Agency Website for Tours, Jungle Safaris & MICE",
+      live: "https://batstraveller.com/",
+      tech: "Laravel (PHP 8.3), Tailwind CSS, Google Analytics 4",
+      features: [
+        "Live client site for a Delhi NCR travel agency: domestic & international tours, weekend trips and MICE",
+        "8 tour packages across 9 destinations, each with a day-by-day itinerary, stays & inclusions",
+        "Jungle safari section covering 6 national parks, from Jim Corbett to Kaziranga",
+        "Free-quote lead forms (inline & popup) capture destination, travel month & group size for the sales team",
       ]
     },
     {
